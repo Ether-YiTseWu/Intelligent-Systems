@@ -1,78 +1,78 @@
 clear;
-clc;                                            %ªì©l¤Æ
-x=-4:0.1:4; y=0:0.1:2; [X,Y]=meshgrid(x,y);     %³]©wX¡BY¶b
+clc;                                            %åˆå§‹åŒ–
+x=-4:0.1:4; y=0:0.1:2; [X,Y]=meshgrid(x,y);     %è¨­å®šXã€Yè»¸
 %------------------------------------------------------------------------------------------------------------------------------------------------------%
 xx = -4:0.1:0; yy = -xx/4;  leng = length(yy);
-tempLow_AlphaCut = [yy zeros(1,81-leng)];       %§C·Å ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C(¦]¥»ÃD¿é¤J¬°³æÂI¿é¤J¡A¬GÀ³ÅÜ¼Æµ¥©óAlphaCut)
+tempLow_AlphaCut = [yy zeros(1,81-leng)];       %ä½æº« çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚(å› æœ¬é¡Œè¼¸å…¥ç‚ºå–®é»è¼¸å…¥ï¼Œæ•…æ‡‰è®Šæ•¸ç­‰æ–¼AlphaCut)
 
 xx1 = -3  :0.1:0; yy1 = (3+xx1)/3;  
 xx2 =  0.1:0.1:3; yy2 = (3-xx2)/3;
 zero = zeros(1,10);
-tempMedium_AlphaCut = [zero yy1 yy2 zero];      %¤¤µ¥·Å ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+tempMedium_AlphaCut = [zero yy1 yy2 zero];      %ä¸­ç­‰æº« çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 xx = 0:0.1:4; yy = xx/4;  leng = length(yy);
-tempHigh_AlphaCut = [zeros(1,81-leng) yy];      %°ª·Å ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C(¦]¥»ÃD¿é¤J¬°³æÂI¿é¤J¡A¬GÀ³ÅÜ¼Æµ¥©óAlphaCut)
+tempHigh_AlphaCut = [zeros(1,81-leng) yy];      %é«˜æº« çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚(å› æœ¬é¡Œè¼¸å…¥ç‚ºå–®é»è¼¸å…¥ï¼Œæ•…æ‡‰è®Šæ•¸ç­‰æ–¼AlphaCut)
 
 % plot(x,tempLow_AlphaCut,'b');
 % hold on;
-% plot(x,tempMedium_AlphaCut,'g');              %Ã¸»sÃD¥Ø©Òµ¹ªº·Å«×¹Ï§Î
+% plot(x,tempMedium_AlphaCut,'g');              %ç¹ªè£½é¡Œç›®æ‰€çµ¦çš„æº«åº¦åœ–å½¢
 % hold on;
 % plot(x,tempHigh_AlphaCut,'red');
 % hold on;
-% legend('Low temp','Medium temp','High temp');  xlabel('X:Temperature(¢XC)');   ylabel('Y:Degree of Membership');
+% legend('Low temp','Medium temp','High temp');  xlabel('X:Temperature(Â°C)');   ylabel('Y:Degree of Membership');
 %------------------------------------------------------------------------------------------------------------------------------------------------------%
 xx = 1:0.1:2; yy = -1+xx;
-weightHeavy_AlphaCut = [zeros(1,10) yy];        %­« ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+weightHeavy_AlphaCut = [zeros(1,10) yy];        %é‡ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 xx1 =  0  :0.1:1; yy1 = xx1;  
 xx2 =  1.1:0.1:2; yy2 = 2-xx2;
-weightMedium_AlphaCut = [yy1 yy2];              %¤¤µ¥­« ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+weightMedium_AlphaCut = [yy1 yy2];              %ä¸­ç­‰é‡ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 xx = 0:0.1:1; yy =  1-xx;
-weightLight_AlphaCut = [yy zeros(1,10)];        %»´ ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+weightLight_AlphaCut = [yy zeros(1,10)];        %è¼• çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 % plot(y,weightLight_AlphaCut,'b');
 % hold on;
-% plot(y,weightMedium_AlphaCut,'g');            %Ã¸»sÃD¥Ø©Òµ¹ªº­«¶q¹Ï§Î
+% plot(y,weightMedium_AlphaCut,'g');            %ç¹ªè£½é¡Œç›®æ‰€çµ¦çš„é‡é‡åœ–å½¢
 % hold on;
 % plot(y,weightHeavy_AlphaCut,'red');
 % hold on;
 % legend('Light weight','Medium weight','Heavy weight');  xlabel('X:Weight(Kg)');   ylabel('Y:Degree of Membership');
 %------------------------------------------------------------------------------------------------------------------------------------------------------%
 xx = 1000:1200; yy = (-1000+xx)/200;            
-powerHigh = [zeros(1,400) yy];                 %°ª¥\²v ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+powerHigh = [zeros(1,400) yy];                 %é«˜åŠŸç‡ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 xx1 =  700:900;  yy1 = (-700+xx1)/200;  
 xx2 =  901:1100; yy2 = (1100-xx2)/200; 
 zero = zeros(1,100);
-powerMedium = [zero yy1 yy2 zero];             %¤¤µ¥¥\²v ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+powerMedium = [zero yy1 yy2 zero];             %ä¸­ç­‰åŠŸç‡ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 xx = 600:800; yy = (800-xx)/200;    
-powerLow = [yy zeros(1,400)];                  %§C¥\²v ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+powerLow = [yy zeros(1,400)];                  %ä½åŠŸç‡ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 % tempX = 600:1200; 
 % plot(tempX,powerLow,'b');
 % hold on;
-% plot(tempX,powerMedium,'g');                 %Ã¸»sÃD¥Ø©Òµ¹ªº¥\²v¹Ï§Î
+% plot(tempX,powerMedium,'g');                 %ç¹ªè£½é¡Œç›®æ‰€çµ¦çš„åŠŸç‡åœ–å½¢
 % hold on;
 % plot(tempX,powerHigh,'red');
 % hold on;
 % legend('Low power','Medium power','High power');  xlabel('X:Power(w)');   ylabel('Y:Degree of Membership');
 %------------------------------------------------------------------------------------------------------------------------------------------------------%
 xx = 5:10; yy = (-5+xx)/5;            
-op_timeLong = [zeros(1,5) yy];                  %ªø¹BÂà®É¶¡ ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+op_timeLong = [zeros(1,5) yy];                  %é•·é‹è½‰æ™‚é–“ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 xx1= 0:5 ; yy1 = xx1/5;  
 xx2= 6:10; yy2 = (10-xx2)/5;            
-op_timeMedium = [yy1 yy2];                      %¤¤µ¥¹BÂà®É¶¡ ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+op_timeMedium = [yy1 yy2];                      %ä¸­ç­‰é‹è½‰æ™‚é–“ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 xx = 0:5; yy = (5-xx)/5;            
-op_timeShort = [yy zeros(1,5)];                 %µu¹BÂà®É¶¡ ªº¼Ò½k¶°¦XÀ³ÅÜ¼Æ¡C
+op_timeShort = [yy zeros(1,5)];                 %çŸ­é‹è½‰æ™‚é–“ çš„æ¨¡ç³Šé›†åˆæ‡‰è®Šæ•¸ã€‚
 
 % tempX = 0:10; 
 % plot(tempX,op_timeLong,'red');
 % hold on;
-% plot(tempX,op_timeMedium,'g');                  %Ã¸»sÃD¥Ø©Òµ¹ªº¹BÂà®É¶¡¹Ï§Î
+% plot(tempX,op_timeMedium,'g');                %ç¹ªè£½é¡Œç›®æ‰€çµ¦çš„é‹è½‰æ™‚é–“åœ–å½¢
 % hold on;
 % plot(tempX,op_timeShort,'b');
 % hold on;
@@ -86,7 +86,7 @@ Rule5_AlphaCut   =  RealAlphaCut(weightMedium_AlphaCut,tempMedium_AlphaCut);
 Rule6_AlphaCut   =  RealAlphaCut(weightLight_AlphaCut ,tempMedium_AlphaCut);
 Rule7_AlphaCut   =  RealAlphaCut(weightHeavy_AlphaCut ,tempHigh_AlphaCut);
 Rule8_AlphaCut   =  RealAlphaCut(weightMedium_AlphaCut,tempHigh_AlphaCut);
-Rule9_AlphaCut   =  RealAlphaCut(weightLight_AlphaCut ,tempHigh_AlphaCut);           %§Q¥Î¤w¼gªº¨ç¼Æ¸ÑRule1~Rule9¹ïÀ³ªºAlphaCut 
+Rule9_AlphaCut   =  RealAlphaCut(weightLight_AlphaCut ,tempHigh_AlphaCut);           %åˆ©ç”¨å·²å¯«çš„å‡½æ•¸è§£Rule1~Rule9å°æ‡‰çš„AlphaCut 
 
 Rule1_powerAns   =  Power_Ans(Rule1_AlphaCut,powerHigh);
 Rule2_powerAns   =  Power_Ans(Rule2_AlphaCut,powerHigh);
@@ -96,7 +96,7 @@ Rule5_powerAns   =  Power_Ans(Rule5_AlphaCut,powerMedium);
 Rule6_powerAns   =  Power_Ans(Rule6_AlphaCut,powerMedium);
 Rule7_powerAns   =  Power_Ans(Rule7_AlphaCut,powerLow);
 Rule8_powerAns   =  Power_Ans(Rule8_AlphaCut,powerLow);
-Rule9_powerAns   =  Power_Ans(Rule9_AlphaCut,powerLow);                              %§Q¥Î¤w¼gªº¨ç¼Æ¨ÏAlphaCut»PRule1~Rule9ªº¥\²v¹Ï§Î°µ¨ú¤p¹Bºâ¡C
+Rule9_powerAns   =  Power_Ans(Rule9_AlphaCut,powerLow);                              %åˆ©ç”¨å·²å¯«çš„å‡½æ•¸ä½¿AlphaCutèˆ‡Rule1~Rule9çš„åŠŸç‡åœ–å½¢åšå–å°é‹ç®—ã€‚
 
 powerAns_figure = max(Rule1_powerAns,Rule2_powerAns);
 powerAns_figure = max(powerAns_figure,Rule3_powerAns);
@@ -105,9 +105,9 @@ powerAns_figure = max(powerAns_figure,Rule5_powerAns);
 powerAns_figure = max(powerAns_figure,Rule6_powerAns);
 powerAns_figure = max(powerAns_figure,Rule7_powerAns);
 powerAns_figure = max(powerAns_figure,Rule8_powerAns);
-powerAns_figure = max(powerAns_figure,Rule9_powerAns);                               %§Q¥Î¤w¼gªº¨ç¼Æ¨ÏRule1~Rule9¹ïÀ³ªº©Ò¦³¥\²v¿é¥X¹Ï§Î°µ¨ú¤j¹Bºâ¡C
+powerAns_figure = max(powerAns_figure,Rule9_powerAns);                               %åˆ©ç”¨å·²å¯«çš„å‡½æ•¸ä½¿Rule1~Rule9å°æ‡‰çš„æ‰€æœ‰åŠŸç‡è¼¸å‡ºåœ–å½¢åšå–å¤§é‹ç®—ã€‚
 
-ss = 1;                                                                              %ssªíX¶b¦@81­ÓÂI¤ÎY¶b¦@21­ÓÂI©Ò±o¥Xªº1701­Ó¥i¯à¤¤¡A¨C­ÓÂI¥Ñ¤W­z¹Bºâ©Ò±o¥Xªº¹Ï§Î
+ss = 1;                                                                              %ssè¡¨Xè»¸å…±81å€‹é»åŠYè»¸å…±21å€‹é»æ‰€å¾—å‡ºçš„1701å€‹å¯èƒ½ä¸­ï¼Œæ¯å€‹é»ç”±ä¸Šè¿°é‹ç®—æ‰€å¾—å‡ºçš„åœ–å½¢
 for i=1:21                                                   
      for j=1:81                                             
          numerator = 0;                                              
@@ -116,7 +116,7 @@ for i=1:21
          for k=1:601                                                     
              s = s + 1;                                     
              numerator = numerator + s*powerAns_figure(ss,k);   
-             denominator = denominator + powerAns_figure(ss,k);                      %COG¸Ñ¼Ò½k
+             denominator = denominator + powerAns_figure(ss,k);                      %COGè§£æ¨¡ç³Š
          end
          ss = ss+1;
          COG_poweranswer(i,j) = numerator / denominator;                
@@ -131,7 +131,7 @@ Rule5_op_timeAns =  OperationTime_Ans(Rule5_AlphaCut,op_timeMedium);
 Rule6_op_timeAns =  OperationTime_Ans(Rule6_AlphaCut,op_timeShort);
 Rule7_op_timeAns =  OperationTime_Ans(Rule7_AlphaCut,op_timeLong);
 Rule8_op_timeAns =  OperationTime_Ans(Rule8_AlphaCut,op_timeMedium);
-Rule9_op_timeAns =  OperationTime_Ans(Rule9_AlphaCut,op_timeShort);                  %§Q¥Î¤w¼gªº¨ç¼Æ¨ÏAlphaCut»PRule1~Rule9ªº¹BÂà®É¶¡¹Ï§Î°µ¨ú¤p¹Bºâ¡C
+Rule9_op_timeAns =  OperationTime_Ans(Rule9_AlphaCut,op_timeShort);                  %åˆ©ç”¨å·²å¯«çš„å‡½æ•¸ä½¿AlphaCutèˆ‡Rule1~Rule9çš„é‹è½‰æ™‚é–“åœ–å½¢åšå–å°é‹ç®—ã€‚
 
 op_timeAns_figure = max(Rule1_op_timeAns,Rule2_op_timeAns);
 op_timeAns_figure = max(op_timeAns_figure,Rule3_op_timeAns);
@@ -140,7 +140,7 @@ op_timeAns_figure = max(op_timeAns_figure,Rule5_op_timeAns);
 op_timeAns_figure = max(op_timeAns_figure,Rule6_op_timeAns);
 op_timeAns_figure = max(op_timeAns_figure,Rule7_op_timeAns);
 op_timeAns_figure = max(op_timeAns_figure,Rule8_op_timeAns);
-op_timeAns_figure = max(op_timeAns_figure,Rule9_op_timeAns);                         %§Q¥Î¤w¼gªº¨ç¼Æ¨ÏRule1~Rule9¹ïÀ³ªº©Ò¦³¹BÂà®É¶¡¿é¥X¹Ï§Î°µ¨ú¤j¹Bºâ¡C
+op_timeAns_figure = max(op_timeAns_figure,Rule9_op_timeAns);                         %åˆ©ç”¨å·²å¯«çš„å‡½æ•¸ä½¿Rule1~Rule9å°æ‡‰çš„æ‰€æœ‰é‹è½‰æ™‚é–“è¼¸å‡ºåœ–å½¢åšå–å¤§é‹ç®—ã€‚
 
 ss = 1;
 for i=1:21                                                   
@@ -150,7 +150,7 @@ for i=1:21
          for k=1:11                                                     
              s = s + 1;                                     
              numerator = numerator + (k-1)*op_timeAns_figure(ss,k);   
-             denominator = denominator + op_timeAns_figure(ss,k);                   %COG¸Ñ¼Ò½k
+             denominator = denominator + op_timeAns_figure(ss,k);                    %COGè§£æ¨¡ç³Š
          end
          ss = ss+1;
          COG_op_timeanswer(i,j) = numerator / denominator;                
@@ -158,7 +158,7 @@ for i=1:21
 end
 
 %------------------------------------------------------------------------------------------------------------------------------------------------------%
-x=-4:0.1:4; y=0:0.1:2; [X,Y]=meshgrid(x,y);     %³]©wX¡BY¶b
+x=-4:0.1:4; y=0:0.1:2; [X,Y]=meshgrid(x,y);     %è¨­å®šXã€Yè»¸
 
-subplot(1,2,1); surf(X,Y,COG_poweranswer);    colorbar;   title("Microwave Oven Simalation (Fuzzy Theory)"); xlabel('X:Temperature(¢XC)'); ylabel('Y:Weight(kg)'); zlabel('Power(w)');
-subplot(1,2,2); surf(X,Y,COG_op_timeanswer);   colorbar;   title("Microwave Oven Simalation (Fuzzy Theory)"); xlabel('X:Temperature(¢XC)'); ylabel('Y:Weight(kg)'); zlabel('Operation Time(min)');
+subplot(1,2,1); surf(X,Y,COG_poweranswer);    colorbar;   title("Microwave Oven Simalation (Fuzzy Theory)"); xlabel('X:Temperature(Â°C)'); ylabel('Y:Weight(kg)'); zlabel('Power(w)');
+subplot(1,2,2); surf(X,Y,COG_op_timeanswer);   colorbar;   title("Microwave Oven Simalation (Fuzzy Theory)"); xlabel('X:Temperature(Â°C)'); ylabel('Y:Weight(kg)'); zlabel('Operation Time(min)');
