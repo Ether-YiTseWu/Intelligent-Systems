@@ -1,116 +1,116 @@
 clear;clc;
 
 % x = [-10:0.01:10];    fx = -15*power(sin(2*x),2)-power((x-2),2)+160;
-% plot(x,fx); title('-15sin(2x)^2-(x-2)^2+160'); xlabel('domain'); ylabel('f(x)');                    %§Q¥Îplot¤j­Pµe¥X¦¹ÃD¥Ø¤§¹Ï§Î                  
+% plot(x,fx); title('-15sin(2x)^2-(x-2)^2+160'); xlabel('domain'); ylabel('f(x)');                    %åˆ©ç”¨plotå¤§è‡´ç•«å‡ºæ­¤é¡Œç›®ä¹‹åœ–å½¢                  
 %---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 %---generate initial generation---%
-internal = 20/1023;     x = -10:internal:10;                                                         %ÃD¥Ø³W©w¬°10bits
+internal = 20/1023;     x = -10:internal:10;                                                         %é¡Œç›®è¦å®šç‚º10bits
 
-B_initialGeneration_decimal = randi(1023,1,10);                                                      %²£¥Xªì©l¥@¥N(¤Q¶i¦ì)    B«übinary code
-B_initialGeneration_decode = x(B_initialGeneration_decimal);                                         %²£¥Xªì©l¥@¥N(¸Ñ½X«á)    B«übinary code
-B_initialGeneration_binary = dec2bin(B_initialGeneration_decimal);                                   %²£¥Xªì©l¥@¥N(¤G¶i¦ì)    B«übinary code
-B_fitnessValue = findFitness(B_initialGeneration_decode);                                            %§Q¥Î¦Û¤w¼gªºfunctionºâ¥X¾AÀ³­È
-
-for i=1:10
-    R_initialGeneration_decode(i) = -10+(10-(-10))*rand(1,1);                                        %²£¥Xªì©l¥@¥N(¸Ñ½X«á)
-end
-R_fitnessValue = findFitness(R_initialGeneration_decode);                                            %ºâ¥X¾AÀ³­È¡AR«ü¹ê¼Æ
+B_initialGeneration_decimal = randi(1023,1,10);                                                      %ç”¢å‡ºåˆå§‹ä¸–ä»£(åé€²ä½)    BæŒ‡binary code
+B_initialGeneration_decode = x(B_initialGeneration_decimal);                                         %ç”¢å‡ºåˆå§‹ä¸–ä»£(è§£ç¢¼å¾Œ)    BæŒ‡binary code
+B_initialGeneration_binary = dec2bin(B_initialGeneration_decimal);                                   %ç”¢å‡ºåˆå§‹ä¸–ä»£(äºŒé€²ä½)    BæŒ‡binary code
+B_fitnessValue = findFitness(B_initialGeneration_decode);                                            %åˆ©ç”¨è‡ªå·²å¯«çš„functionç®—å‡ºé©æ‡‰å€¼
 
 for i=1:10
-    EA_initialGeneration_decode(i) = -10+(10-(-10))*rand(1,1);                                       %²£¥Xªì©l¥@¥N(¸Ñ½X«á)¡AEA«üºt¤Æ­pºâªk
+    R_initialGeneration_decode(i) = -10+(10-(-10))*rand(1,1);                                        %ç”¢å‡ºåˆå§‹ä¸–ä»£(è§£ç¢¼å¾Œ)
 end
-EA_fitnessValue = findFitness(EA_initialGeneration_decode);                                          %ºâ¥X¾AÀ³­È  EA«üºt¤Æ­pºâªk
+R_fitnessValue = findFitness(R_initialGeneration_decode);                                            %ç®—å‡ºé©æ‡‰å€¼ï¼ŒRæŒ‡å¯¦æ•¸
+
+for i=1:10
+    EA_initialGeneration_decode(i) = -10+(10-(-10))*rand(1,1);                                       %ç”¢å‡ºåˆå§‹ä¸–ä»£(è§£ç¢¼å¾Œ)ï¼ŒEAæŒ‡æ¼”åŒ–è¨ˆç®—æ³•
+end
+EA_fitnessValue = findFitness(EA_initialGeneration_decode);                                          %ç®—å‡ºé©æ‡‰å€¼  EAæŒ‡æ¼”åŒ–è¨ˆç®—æ³•
 %---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 %---reproduction(initial generation)---%
-B_percentage = wheel_percent(B_fitnessValue);       %§Q¥Î¦Û¤w¼gªºfunction¡A±o¨ì½ü½Lªk«á±o¨ìªº¤ñ²v(B)
-R_percentage = wheel_percent(R_fitnessValue);       %§Q¥Î¦Û¤w¼gªºfunction½ü½Lªk«á±o¨ìªº¤ñ²v(R)
-EA_percentage = wheel_percent(EA_fitnessValue);     %§Q¥Î¦Û¤w¼gªºfunction½ü½Lªk«á±o¨ìªº¤ñ²v(EA)
+B_percentage = wheel_percent(B_fitnessValue);       %åˆ©ç”¨è‡ªå·²å¯«çš„functionï¼Œå¾—åˆ°è¼ªç›¤æ³•å¾Œå¾—åˆ°çš„æ¯”ç‡(B)
+R_percentage = wheel_percent(R_fitnessValue);       %åˆ©ç”¨è‡ªå·²å¯«çš„functionè¼ªç›¤æ³•å¾Œå¾—åˆ°çš„æ¯”ç‡(R)
+EA_percentage = wheel_percent(EA_fitnessValue);     %åˆ©ç”¨è‡ªå·²å¯«çš„functionè¼ªç›¤æ³•å¾Œå¾—åˆ°çš„æ¯”ç‡(EA)
 
-B_wheelGeneration_decode = rouletteWheelSelection(B_initialGeneration_decode,B_percentage);      %§Q¥Î¦Û¤w¼gªºfunction¸Ñ¥X¸g¹L½ü½Lªk«á±o¨ìªº­È(¤Q¶i¦ì)(B)
-B_tournamentGeneration_decode = tournamentSelection(B_initialGeneration_decode,2);               %§Q¥Î¦Û¤w¼gªºfunction¸Ñ¥X¸g¹LÄvª§ªk«á±o¨ìªº­È(¤Q¶i¦ì)(B)
+B_wheelGeneration_decode = rouletteWheelSelection(B_initialGeneration_decode,B_percentage);      %åˆ©ç”¨è‡ªå·²å¯«çš„functionè§£å‡ºç¶“éè¼ªç›¤æ³•å¾Œå¾—åˆ°çš„å€¼(åé€²ä½)(B)
+B_tournamentGeneration_decode = tournamentSelection(B_initialGeneration_decode,2);               %åˆ©ç”¨è‡ªå·²å¯«çš„functionè§£å‡ºç¶“éç«¶çˆ­æ³•å¾Œå¾—åˆ°çš„å€¼(åé€²ä½)(B)
 
-R_wheelGeneration_decode = rouletteWheelSelection(R_initialGeneration_decode,R_percentage);      %§Q¥Î¦Û¤w¼gªºfunction¸Ñ¥X¸g¹L½ü½Lªk«á±o¨ìªº­È(R)
-R_tournamentGeneration_decode = tournamentSelection(R_initialGeneration_decode,2);               %§Q¥Î¦Û¤w¼gªºfunction¸Ñ¥X¸g¹LÄvª§ªk«á±o¨ìªº­È(R)
+R_wheelGeneration_decode = rouletteWheelSelection(R_initialGeneration_decode,R_percentage);      %åˆ©ç”¨è‡ªå·²å¯«çš„functionè§£å‡ºç¶“éè¼ªç›¤æ³•å¾Œå¾—åˆ°çš„å€¼(R)
+R_tournamentGeneration_decode = tournamentSelection(R_initialGeneration_decode,2);               %åˆ©ç”¨è‡ªå·²å¯«çš„functionè§£å‡ºç¶“éç«¶çˆ­æ³•å¾Œå¾—åˆ°çš„å€¼(R)
 
-EA_wheelGeneration_decode = rouletteWheelSelection(EA_initialGeneration_decode,EA_percentage);   %§Q¥Î¦Û¤w¼gªºfunction¸Ñ¥X¸g¹L½ü½Lªk«á±o¨ìªº­È(EA)
-EA_tournamentGeneration_decode = tournamentSelection(EA_initialGeneration_decode,2);             %§Q¥Î¦Û¤w¼gªºfunction¸Ñ¥X¸g¹LÄvª§ªk«á±o¨ìªº­È(EA)
+EA_wheelGeneration_decode = rouletteWheelSelection(EA_initialGeneration_decode,EA_percentage);   %åˆ©ç”¨è‡ªå·²å¯«çš„functionè§£å‡ºç¶“éè¼ªç›¤æ³•å¾Œå¾—åˆ°çš„å€¼(EA)
+EA_tournamentGeneration_decode = tournamentSelection(EA_initialGeneration_decode,2);             %åˆ©ç”¨è‡ªå·²å¯«çš„functionè§£å‡ºç¶“éç«¶çˆ­æ³•å¾Œå¾—åˆ°çš„å€¼(EA)
 %---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-%---¶i¤J¥@¥N¥æ´Àªº°j°é¤¤---%
+%---é€²å…¥ä¸–ä»£äº¤æ›¿çš„è¿´åœˆä¸­---%
 n = 1;
-while n<401                                                                    %n¬°¤H¬°«ü©wªº¥@¥N¼Æ¡A¨S¦³¬Æ»ò·N¸q¡A®Ú¾Ú¼ÒÀÀµ²ªG½Õ¾ã§Y¥i
+while n<401                                                                    %nç‚ºäººç‚ºæŒ‡å®šçš„ä¸–ä»£æ•¸ï¼Œæ²’æœ‰ç”šéº¼æ„ç¾©ï¼Œæ ¹æ“šæ¨¡æ“¬çµæœèª¿æ•´å³å¯
 %---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 %---crossover---%
-    b = randperm(10);                                                          %¨M©w¥æ°t¶Ã¼Æ
-    r = randperm(10);                                                          %¨M©w¥æ°t¶Ã¼Æ
-    ea = randperm(10);                                                         %¨M©w¥æ°t¶Ã¼Æ
+    b = randperm(10);                                                          %æ±ºå®šäº¤é…äº‚æ•¸
+    r = randperm(10);                                                          %æ±ºå®šäº¤é…äº‚æ•¸
+    ea = randperm(10);                                                         %æ±ºå®šäº¤é…äº‚æ•¸
     
     B_wheelGeneration_decimal = binaryValue_encode(B_wheelGeneration_decode,x);
     B_tournamentGeneration_decimal = binaryValue_encode(B_tournamentGeneration_decode,x);
     
-    B_wheel_parent = dec2bin(B_wheelGeneration_decimal(b(1:10)));              %¨M©wB«¬­n¥æ°tªº¤H¤f(½ü½Lªk)
-    B_tournament_parent = dec2bin(B_tournamentGeneration_decimal(b(1:10)));    %¨M©wB«¬­n¥æ°tªº¤H¤f(Ävª§ªk)
-    R_wheel_parent = R_wheelGeneration_decode(r(1:8));                         %¨M©wR­n¥æ°tªº¤H¤f(½ü½Lªk)
-    R_tournament_parent = R_tournamentGeneration_decode(r(1:8));               %¨M©wR­n¥æ°tªº¤H¤f(Ävª§ªk)
-    EA_wheel_parent = EA_wheelGeneration_decode(ea(1:8));                      %¨M©wEA­n¥æ°tªº¤H¤f(½ü½Lªk)
-    EA_tournament_parent = EA_tournamentGeneration_decode(ea(1:8));            %¨M©wEA­n¥æ°tªº¤H¤f(Ävª§ªk)
+    B_wheel_parent = dec2bin(B_wheelGeneration_decimal(b(1:10)));              %æ±ºå®šBå‹è¦äº¤é…çš„äººå£(è¼ªç›¤æ³•)
+    B_tournament_parent = dec2bin(B_tournamentGeneration_decimal(b(1:10)));    %æ±ºå®šBå‹è¦äº¤é…çš„äººå£(ç«¶çˆ­æ³•)
+    R_wheel_parent = R_wheelGeneration_decode(r(1:8));                         %æ±ºå®šRè¦äº¤é…çš„äººå£(è¼ªç›¤æ³•)
+    R_tournament_parent = R_tournamentGeneration_decode(r(1:8));               %æ±ºå®šRè¦äº¤é…çš„äººå£(ç«¶çˆ­æ³•)
+    EA_wheel_parent = EA_wheelGeneration_decode(ea(1:8));                      %æ±ºå®šEAè¦äº¤é…çš„äººå£(è¼ªç›¤æ³•)
+    EA_tournament_parent = EA_tournamentGeneration_decode(ea(1:8));            %æ±ºå®šEAè¦äº¤é…çš„äººå£(ç«¶çˆ­æ³•)
 
-    B_wheel_generation = binaryValue_crossover(B_wheel_parent);                %§Q¥Î¦Û¤w¼gªºfunction§¹¦¨B«¬¥æ°t(½ü½Lªk)
-    B_tournament_generation = binaryValue_crossover(B_tournament_parent);      %§Q¥Î¦Û¤w¼gªºfunction§¹¦¨B«¬¥æ°t(Ävª§ªk)
-    R_wheel_generation = realValue_crossover(R_wheel_parent);                  %§Q¥Î¦Û¤w¼gªºfunction§¹¦¨R«¬¥æ°t(½ü½Lªk)
-    R_tournament_generation = realValue_crossover(R_tournament_parent);        %§Q¥Î¦Û¤w¼gªºfunction§¹¦¨R«¬¥æ°t(Ävª§ªk)
-    EA_wheel_generation = evoAlgorithm_crossover(EA_wheel_parent);             %§Q¥Î¦Û¤w¼gªºfunction§¹¦¨EA«¬¥æ°t(½ü½Lªk)
-    EA_tournament_generation = evoAlgorithm_crossover(EA_tournament_parent);   %§Q¥Î¦Û¤w¼gªºfunction§¹¦¨EA«¬¥æ°t(Ävª§ªk)
+    B_wheel_generation = binaryValue_crossover(B_wheel_parent);                %åˆ©ç”¨è‡ªå·²å¯«çš„functionå®ŒæˆBå‹äº¤é…(è¼ªç›¤æ³•)
+    B_tournament_generation = binaryValue_crossover(B_tournament_parent);      %åˆ©ç”¨è‡ªå·²å¯«çš„functionå®ŒæˆBå‹äº¤é…(ç«¶çˆ­æ³•)
+    R_wheel_generation = realValue_crossover(R_wheel_parent);                  %åˆ©ç”¨è‡ªå·²å¯«çš„functionå®ŒæˆRå‹äº¤é…(è¼ªç›¤æ³•)
+    R_tournament_generation = realValue_crossover(R_tournament_parent);        %åˆ©ç”¨è‡ªå·²å¯«çš„functionå®ŒæˆRå‹äº¤é…(ç«¶çˆ­æ³•)
+    EA_wheel_generation = evoAlgorithm_crossover(EA_wheel_parent);             %åˆ©ç”¨è‡ªå·²å¯«çš„functionå®ŒæˆEAå‹äº¤é…(è¼ªç›¤æ³•)
+    EA_tournament_generation = evoAlgorithm_crossover(EA_tournament_parent);   %åˆ©ç”¨è‡ªå·²å¯«çš„functionå®ŒæˆEAå‹äº¤é…(ç«¶çˆ­æ³•)
 
-    R_wheel_generation(9:10) = R_wheelGeneration_decode(r(9:10));              %§ÚB«¬ªº¥æ°tfunction§Î¦¡©MREA«¬ªº¤£¤@¼Ë¡A¬G¤£»İ¬°¤§±N¨S¦³¶i¦æ¥æ°tªº¤H¤f¥[¦^±Ú¸s¤¤
+    R_wheel_generation(9:10) = R_wheelGeneration_decode(r(9:10));              %æˆ‘Bå‹çš„äº¤é…functionå½¢å¼å’ŒREAå‹çš„ä¸ä¸€æ¨£ï¼Œæ•…ä¸éœ€ç‚ºä¹‹å°‡æ²’æœ‰é€²è¡Œäº¤é…çš„äººå£åŠ å›æ—ç¾¤ä¸­
     R_tournament_generation(9:10) = R_tournamentGeneration_decode(r(9:10));
     EA_wheel_generation(9:10) = EA_wheelGeneration_decode(ea(9:10));
-    EA_tournament_generation(9:10) = EA_tournamentGeneration_decode(ea(9:10));  %¥ªÃä¥|¦æµ{¦¡½X¬°¡G±N¨S¦³¶i¦æ¥æ°tªº¤H¤f¥[¦^±Ú¸s¤¤
+    EA_tournament_generation(9:10) = EA_tournamentGeneration_decode(ea(9:10));  %å·¦é‚Šå››è¡Œç¨‹å¼ç¢¼ç‚ºï¼šå°‡æ²’æœ‰é€²è¡Œäº¤é…çš„äººå£åŠ å›æ—ç¾¤ä¸­
 %---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 %---mutation---%
     if mod(n,10) == 0
-        R_wheel_generation = R_mutation(R_wheel_generation);                    %§Q¥Î¤w¼gªºfunction±o¥XR«¬ªº¬ğÅÜµ²ªG(½ü½Lªk)
-        R_tournament_generation = R_mutation(R_tournament_generation);          %§Q¥Î¤w¼gªºfunction±o¥XR«¬ªº¬ğÅÜµ²ªG(Ävª§ªk)           
-        EA_wheel_generation = EA_mutation(EA_wheel_generation);                 %§Q¥Î¤w¼gªºfunction±o¥XEA«¬ªº¬ğÅÜµ²ªG(½ü½Lªk)
-        EA_tournament_generation = EA_mutation(EA_tournament_generation);       %§Q¥Î¤w¼gªºfunction±o¥XEA«¬ªº¬ğÅÜµ²ªG(Ävª§ªk)
+        R_wheel_generation = R_mutation(R_wheel_generation);                    %åˆ©ç”¨å·²å¯«çš„functionå¾—å‡ºRå‹çš„çªè®Šçµæœ(è¼ªç›¤æ³•)
+        R_tournament_generation = R_mutation(R_tournament_generation);          %åˆ©ç”¨å·²å¯«çš„functionå¾—å‡ºRå‹çš„çªè®Šçµæœ(ç«¶çˆ­æ³•)           
+        EA_wheel_generation = EA_mutation(EA_wheel_generation);                 %åˆ©ç”¨å·²å¯«çš„functionå¾—å‡ºEAå‹çš„çªè®Šçµæœ(è¼ªç›¤æ³•)
+        EA_tournament_generation = EA_mutation(EA_tournament_generation);       %åˆ©ç”¨å·²å¯«çš„functionå¾—å‡ºEAå‹çš„çªè®Šçµæœ(ç«¶çˆ­æ³•)
     end  
     
     B_wheelmutation_rand = randi(length(B_wheel_generation(:)),1,1);
-    B_wheel_generation(B_wheelmutation_rand) = num2str(xor(str2double(B_wheel_generation(B_wheelmutation_rand)),1));            %B«¬ªº¬ğÅÜµ²ªG(½ü½Lªk)¡AxorÅı1ÅÜ0¡A0ÅÜ1
+    B_wheel_generation(B_wheelmutation_rand) = num2str(xor(str2double(B_wheel_generation(B_wheelmutation_rand)),1));            %Bå‹çš„çªè®Šçµæœ(è¼ªç›¤æ³•)ï¼Œxorè®“1è®Š0ï¼Œ0è®Š1
     B_tourmutation_rand = randi(length(B_tournament_generation(:)),1,1);
-    B_tournament_generation(B_tourmutation_rand) = num2str(xor(str2double(B_tournament_generation(B_tourmutation_rand)),1));    %B«¬ªº¬ğÅÜµ²ªG(Ävª§ªk)¡AxorÅı1ÅÜ0¡A0ÅÜ1
+    B_tournament_generation(B_tourmutation_rand) = num2str(xor(str2double(B_tournament_generation(B_tourmutation_rand)),1));    %Bå‹çš„çªè®Šçµæœ(ç«¶çˆ­æ³•)ï¼Œxorè®“1è®Š0ï¼Œ0è®Š1
 %---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 %---cuculate and reproduction---%
-    B_wheelFit = findFitness(x(bin2dec(B_wheel_generation)));      %¨D¥X¾AÀ³­È(½ü½Lªk¡AB«¬)   ¦¹¦æ¦³¤p¾÷²v°õ¦æ¥X¨Ó¦³¿ù»~¡A¦]¬°®Ú¾Ú¥æ°t¬ğÅÜ¡AB_wheel_generation¥i¯à¥]§t¥ş¬°¹sªº¤H¤f
-    B_tourFit = findFitness(x(bin2dec(B_tournament_generation)));  %¨D¥X¾AÀ³­È(Ävª§ªk¡AB«¬)   ¦¹¦æ¦³¤p¾÷²v°õ¦æ¥X¨Ó¦³¿ù»~¡A¦]¬°®Ú¾Ú¥æ°t¬ğÅÜ¡AB_wheel_generation¥i¯à¥]§t¥ş¬°¹sªº¤H¤f
-    R_wheelFit = findFitness(R_wheel_generation);                  %¨D¥X¾AÀ³­È(½ü½Lªk¡AR«¬)
-    R_tourFit = findFitness(R_tournament_generation);              %¨D¥X¾AÀ³­È(Ävª§ªk¡AR«¬)
-    EA_wheelFit = findFitness(EA_wheel_generation);                %¨D¥X¾AÀ³­È(½ü½Lªk¡AEA«¬)
-    EA_tourFit = findFitness(EA_tournament_generation);            %¨D¥X¾AÀ³­È(Ävª§ªk¡AEA«¬)
+    B_wheelFit = findFitness(x(bin2dec(B_wheel_generation)));      %æ±‚å‡ºé©æ‡‰å€¼(è¼ªç›¤æ³•ï¼ŒBå‹)   æ­¤è¡Œæœ‰å°æ©Ÿç‡åŸ·è¡Œå‡ºä¾†æœ‰éŒ¯èª¤ï¼Œå› ç‚ºæ ¹æ“šäº¤é…çªè®Šï¼ŒB_wheel_generationå¯èƒ½åŒ…å«å…¨ç‚ºé›¶çš„äººå£
+    B_tourFit = findFitness(x(bin2dec(B_tournament_generation)));  %æ±‚å‡ºé©æ‡‰å€¼(ç«¶çˆ­æ³•ï¼ŒBå‹)   æ­¤è¡Œæœ‰å°æ©Ÿç‡åŸ·è¡Œå‡ºä¾†æœ‰éŒ¯èª¤ï¼Œå› ç‚ºæ ¹æ“šäº¤é…çªè®Šï¼ŒB_wheel_generationå¯èƒ½åŒ…å«å…¨ç‚ºé›¶çš„äººå£
+    R_wheelFit = findFitness(R_wheel_generation);                  %æ±‚å‡ºé©æ‡‰å€¼(è¼ªç›¤æ³•ï¼ŒRå‹)
+    R_tourFit = findFitness(R_tournament_generation);              %æ±‚å‡ºé©æ‡‰å€¼(ç«¶çˆ­æ³•ï¼ŒRå‹)
+    EA_wheelFit = findFitness(EA_wheel_generation);                %æ±‚å‡ºé©æ‡‰å€¼(è¼ªç›¤æ³•ï¼ŒEAå‹)
+    EA_tourFit = findFitness(EA_tournament_generation);            %æ±‚å‡ºé©æ‡‰å€¼(ç«¶çˆ­æ³•ï¼ŒEAå‹)
     
     NEW_B_wheelPercentage = wheel_percent(B_wheelFit);
-    NEW_B_wheelGeneration_decode = rouletteWheelSelection(x(bin2dec(B_wheel_generation)),NEW_B_wheelPercentage); %reproduction(½ü½Lªk¡AB«¬)
+    NEW_B_wheelGeneration_decode = rouletteWheelSelection(x(bin2dec(B_wheel_generation)),NEW_B_wheelPercentage); %reproduction(è¼ªç›¤æ³•ï¼ŒBå‹)
     NEW_R_wheelPercentage = wheel_percent(R_wheelFit);
-    NEW_R_wheelGeneration_decode = rouletteWheelSelection(R_wheel_generation,NEW_R_wheelPercentage);             %reproduction(½ü½Lªk¡A¹ê¼Æ«¬)
+    NEW_R_wheelGeneration_decode = rouletteWheelSelection(R_wheel_generation,NEW_R_wheelPercentage);             %reproduction(è¼ªç›¤æ³•ï¼Œå¯¦æ•¸å‹)
     NEW_EA_wheelPercentage = wheel_percent(EA_wheelFit);
-    NEW_EA_wheelGeneration_decode = rouletteWheelSelection(EA_wheel_generation,NEW_EA_wheelPercentage);          %reproduction(½ü½Lªk¡AEA«¬)
+    NEW_EA_wheelGeneration_decode = rouletteWheelSelection(EA_wheel_generation,NEW_EA_wheelPercentage);          %reproduction(è¼ªç›¤æ³•ï¼ŒEAå‹)
     
-    NEW_B_tourGeneration_decode = tournamentSelection(x(bin2dec(B_tournament_generation)),2);                    %reproduction(Ävª§ªk¡AB«¬)
-    NEW_R_tourGeneration_decode = tournamentSelection(R_tournament_generation,2);                                %reproduction(Ävª§ªk¡A¹ê¼Æ«¬)
-    NEW_EA_tourGeneration_decode = tournamentSelection(EA_tournament_generation,2);                              %reproduction(Ävª§ªk¡AEA«¬)
+    NEW_B_tourGeneration_decode = tournamentSelection(x(bin2dec(B_tournament_generation)),2);                    %reproduction(ç«¶çˆ­æ³•ï¼ŒBå‹)
+    NEW_R_tourGeneration_decode = tournamentSelection(R_tournament_generation,2);                                %reproduction(ç«¶çˆ­æ³•ï¼Œå¯¦æ•¸å‹)
+    NEW_EA_tourGeneration_decode = tournamentSelection(EA_tournament_generation,2);                              %reproduction(ç«¶çˆ­æ³•ï¼ŒEAå‹)
     
-    B_wheelGeneration_decode = NEW_B_wheelGeneration_decode;                        %§ó·s­È¡A¥H¨Ï°j°é°õ¦æµL»~(½ü½Lªk¡AB«¬)
-    B_tournamentGeneration_decode = NEW_B_tourGeneration_decode;                    %§ó·s­È¡A¥H¨Ï°j°é°õ¦æµL»~(Ävª§ªk¡AB«¬)
-    R_wheelGeneration_decode = NEW_R_wheelGeneration_decode;                        %§ó·s­È¡A¥H¨Ï°j°é°õ¦æµL»~(½ü½Lªk¡A¹ê¼Æ«¬)
-    R_tournamentGeneration_decode = NEW_R_tourGeneration_decode;                    %§ó·s­È¡A¥H¨Ï°j°é°õ¦æµL»~(Ävª§ªk¡A¹ê¼Æ«¬)
-    EA_wheelGeneration_decode = NEW_EA_wheelGeneration_decode;                      %§ó·s­È¡A¥H¨Ï°j°é°õ¦æµL»~(½ü½Lªk¡AEA«¬)
-    EA_tournamentGeneration_decode = NEW_EA_tourGeneration_decode;                  %§ó·s­È¡A¥H¨Ï°j°é°õ¦æµL»~(Ävª§ªk¡AEA«¬)
+    B_wheelGeneration_decode = NEW_B_wheelGeneration_decode;                        %æ›´æ–°å€¼ï¼Œä»¥ä½¿è¿´åœˆåŸ·è¡Œç„¡èª¤(è¼ªç›¤æ³•ï¼ŒBå‹)
+    B_tournamentGeneration_decode = NEW_B_tourGeneration_decode;                    %æ›´æ–°å€¼ï¼Œä»¥ä½¿è¿´åœˆåŸ·è¡Œç„¡èª¤(ç«¶çˆ­æ³•ï¼ŒBå‹)
+    R_wheelGeneration_decode = NEW_R_wheelGeneration_decode;                        %æ›´æ–°å€¼ï¼Œä»¥ä½¿è¿´åœˆåŸ·è¡Œç„¡èª¤(è¼ªç›¤æ³•ï¼Œå¯¦æ•¸å‹)
+    R_tournamentGeneration_decode = NEW_R_tourGeneration_decode;                    %æ›´æ–°å€¼ï¼Œä»¥ä½¿è¿´åœˆåŸ·è¡Œç„¡èª¤(ç«¶çˆ­æ³•ï¼Œå¯¦æ•¸å‹)
+    EA_wheelGeneration_decode = NEW_EA_wheelGeneration_decode;                      %æ›´æ–°å€¼ï¼Œä»¥ä½¿è¿´åœˆåŸ·è¡Œç„¡èª¤(è¼ªç›¤æ³•ï¼ŒEAå‹)
+    EA_tournamentGeneration_decode = NEW_EA_tourGeneration_decode;                  %æ›´æ–°å€¼ï¼Œä»¥ä½¿è¿´åœˆåŸ·è¡Œç„¡èª¤(ç«¶çˆ­æ³•ï¼ŒEAå‹)
     
-    B_wheel_plot(n) = max(B_wheelFit);                                              %¬ö¿ı¦¹¦¸¥@¥Nªº³Ì¨Î¸Ñ(½ü½Lªk¡A¹ê¼Æ«¬)
-    B_tour_plot(n) = max(B_tourFit);                                                %¬ö¿ı¦¹¦¸¥@¥Nªº³Ì¨Î¸Ñ(Ävª§ªk¡A¹ê¼Æ«¬)
-    R_wheel_plot(n) = max(R_wheelFit);                                              %¬ö¿ı¦¹¦¸¥@¥Nªº³Ì¨Î¸Ñ(½ü½Lªk¡A¹ê¼Æ«¬)
-    R_tour_plot(n) = max(R_tourFit);                                                %¬ö¿ı¦¹¦¸¥@¥Nªº³Ì¨Î¸Ñ(Ävª§ªk¡A¹ê¼Æ«¬)
-    EA_wheel_plot(n) = max(EA_wheelFit);                                            %¬ö¿ı¦¹¦¸¥@¥Nªº³Ì¨Î¸Ñ(½ü½Lªk¡AEA«¬)
-    EA_tour_plot(n) = max(EA_tourFit);                                              %¬ö¿ı¦¹¦¸¥@¥Nªº³Ì¨Î¸Ñ(Ävª§ªk¡AEA«¬)
+    B_wheel_plot(n) = max(B_wheelFit);                                              %ç´€éŒ„æ­¤æ¬¡ä¸–ä»£çš„æœ€ä½³è§£(è¼ªç›¤æ³•ï¼Œå¯¦æ•¸å‹)
+    B_tour_plot(n) = max(B_tourFit);                                                %ç´€éŒ„æ­¤æ¬¡ä¸–ä»£çš„æœ€ä½³è§£(ç«¶çˆ­æ³•ï¼Œå¯¦æ•¸å‹)
+    R_wheel_plot(n) = max(R_wheelFit);                                              %ç´€éŒ„æ­¤æ¬¡ä¸–ä»£çš„æœ€ä½³è§£(è¼ªç›¤æ³•ï¼Œå¯¦æ•¸å‹)
+    R_tour_plot(n) = max(R_tourFit);                                                %ç´€éŒ„æ­¤æ¬¡ä¸–ä»£çš„æœ€ä½³è§£(ç«¶çˆ­æ³•ï¼Œå¯¦æ•¸å‹)
+    EA_wheel_plot(n) = max(EA_wheelFit);                                            %ç´€éŒ„æ­¤æ¬¡ä¸–ä»£çš„æœ€ä½³è§£(è¼ªç›¤æ³•ï¼ŒEAå‹)
+    EA_tour_plot(n) = max(EA_tourFit);                                              %ç´€éŒ„æ­¤æ¬¡ä¸–ä»£çš„æœ€ä½³è§£(ç«¶çˆ­æ³•ï¼ŒEAå‹)
     
     n = n + 1;
 end
@@ -118,19 +118,19 @@ end
 %---plot---%
 xx = 0:n-2; 
 
-B_wheel_max = power(B_wheel_plot(n-1),0.125);         %§ä¨ì³Ì·s¥@¥Nªº¾AÀ³­È¡A¤§«á¸Ñ½X(½ü½Lªk¡A¹ê¼Æ«¬)
-B_tour_max = power(B_tour_plot(n-1),0.125);           %§ä¨ì³Ì·s¥@¥Nªº¾AÀ³­È¡A¤§«á¸Ñ½X(Ävª§ªk¡A¹ê¼Æ«¬)
-R_wheel_max = power(R_wheel_plot(n-1),0.125);         %§ä¨ì³Ì·s¥@¥Nªº¾AÀ³­È¡A¤§«á¸Ñ½X(½ü½Lªk¡A¹ê¼Æ«¬)
-R_tour_max = power(R_tour_plot(n-1),0.125);           %§ä¨ì³Ì·s¥@¥Nªº¾AÀ³­È¡A¤§«á¸Ñ½X(Ävª§ªk¡A¹ê¼Æ«¬)
-EA_wheel_max = power(EA_wheel_plot(n-1),0.125);       %§ä¨ì³Ì·s¥@¥Nªº¾AÀ³­È¡A¤§«á¸Ñ½X(½ü½Lªk¡AEA«¬)
-EA_tour_max = power(EA_tour_plot(n-1),0.125);         %§ä¨ì³Ì·s¥@¥Nªº¾AÀ³­È¡A¤§«á¸Ñ½X(Ävª§ªk¡AEA«¬)
+B_wheel_max = power(B_wheel_plot(n-1),0.125);         %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„é©æ‡‰å€¼ï¼Œä¹‹å¾Œè§£ç¢¼(è¼ªç›¤æ³•ï¼Œå¯¦æ•¸å‹)
+B_tour_max = power(B_tour_plot(n-1),0.125);           %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„é©æ‡‰å€¼ï¼Œä¹‹å¾Œè§£ç¢¼(ç«¶çˆ­æ³•ï¼Œå¯¦æ•¸å‹)
+R_wheel_max = power(R_wheel_plot(n-1),0.125);         %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„é©æ‡‰å€¼ï¼Œä¹‹å¾Œè§£ç¢¼(è¼ªç›¤æ³•ï¼Œå¯¦æ•¸å‹)
+R_tour_max = power(R_tour_plot(n-1),0.125);           %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„é©æ‡‰å€¼ï¼Œä¹‹å¾Œè§£ç¢¼(ç«¶çˆ­æ³•ï¼Œå¯¦æ•¸å‹)
+EA_wheel_max = power(EA_wheel_plot(n-1),0.125);       %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„é©æ‡‰å€¼ï¼Œä¹‹å¾Œè§£ç¢¼(è¼ªç›¤æ³•ï¼ŒEAå‹)
+EA_tour_max = power(EA_tour_plot(n-1),0.125);         %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„é©æ‡‰å€¼ï¼Œä¹‹å¾Œè§£ç¢¼(ç«¶çˆ­æ³•ï¼ŒEAå‹)
 
-B_wheel_x = B_wheelGeneration_decode(xFind(B_wheelGeneration_decode));                    %§ä¨ì³Ì·s¥@¥NªºX
-B_tour_x = B_tournamentGeneration_decode(xFind(B_tournamentGeneration_decode));           %§ä¨ì³Ì·s¥@¥NªºX
-R_wheel_x = R_wheelGeneration_decode(xFind(R_wheelGeneration_decode));                    %§ä¨ì³Ì·s¥@¥NªºX
-R_tour_x = R_tournamentGeneration_decode(xFind(R_tournamentGeneration_decode));           %§ä¨ì³Ì·s¥@¥NªºX
-EA_wheel_x = EA_wheelGeneration_decode(xFind(EA_wheelGeneration_decode));                 %§ä¨ì³Ì·s¥@¥NªºX
-EA_tour_x = EA_tournamentGeneration_decode(xFind(EA_tournamentGeneration_decode));        %§ä¨ì³Ì·s¥@¥NªºX
+B_wheel_x = B_wheelGeneration_decode(xFind(B_wheelGeneration_decode));                    %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„X
+B_tour_x = B_tournamentGeneration_decode(xFind(B_tournamentGeneration_decode));           %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„X
+R_wheel_x = R_wheelGeneration_decode(xFind(R_wheelGeneration_decode));                    %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„X
+R_tour_x = R_tournamentGeneration_decode(xFind(R_tournamentGeneration_decode));           %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„X
+EA_wheel_x = EA_wheelGeneration_decode(xFind(EA_wheelGeneration_decode));                 %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„X
+EA_tour_x = EA_tournamentGeneration_decode(xFind(EA_tournamentGeneration_decode));        %æ‰¾åˆ°æœ€æ–°ä¸–ä»£çš„X
 
 % Plot Binary-Code GAs chart
 subplot(3,2,1);
@@ -154,4 +154,4 @@ plot(xx,EA_wheel_plot); title( {['Evolutionary Algorithm with roulette wheel sel
 xlabel('Generations'); ylabel('Fitness');
 subplot(3,2,6);
 plot(xx,EA_tour_plot); title( {['Evolutionary Algorithm with tournament selection'],['Maximum = ' , mat2str(EA_tour_max),'   x = ',num2str(EA_tour_x)]});  
-xlabel('Generations'); ylabel('Fitness');           
+xlabel('Generations'); ylabel('Fitness');            
