@@ -1,16 +1,16 @@
 clc; clear;
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-%---------³]©w¹Ï§Îªºx,y,z------------%
+%---------è¨­å®šåœ–å½¢çš„x,y,z------------%
 interval = 1.5/21;                               
-x = -0.8+interval : interval :0.7-interval;             %³]©wx¶b¼Æ­È
-y = -0.8+interval : interval :0.7-interval;             %³]©wy¶b¼Æ­È
-for i=1:20                                              %³]©wz¶b¼Æ­È
+x = -0.8+interval : interval :0.7-interval;             %è¨­å®šxè»¸æ•¸å€¼
+y = -0.8+interval : interval :0.7-interval;             %è¨­å®šyè»¸æ•¸å€¼
+for i=1:20                                              %è¨­å®šzè»¸æ•¸å€¼
     for j=1:20
-        z(i,j) = 5*sin(pi*x(i)^2)*sin(2*pi*y(j))+1;
+        z(i,j) = 5*sin(pi*x(i)^2)*sin(2*pi*y(j))+1; 
     end
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-%---------±o¨ì°V½m¶°----------%
+%---------å¾—åˆ°è¨“ç·´é›†----------%
 temp = 1;
 for i=1:20:381
     source(i:i+19,1) = x(temp);                     
@@ -23,16 +23,16 @@ for i=1:400
     else
         source(i,2) = x(20);
     end
-end                                                 %°µ·Ç³Æ¥H¤Á¤À¡Asource¬°¨C­Óx©My¥æ¶°¥X¨Óªºµ²ªG
-index_train = sort(randperm(400,300));              %³]©w¶Ã¼ÆINDEX(´ú¸Õ¶°)
+end                                                 %åšæº–å‚™ä»¥åˆ‡åˆ†ï¼Œsourceç‚ºæ¯å€‹xå’Œyäº¤é›†å‡ºä¾†çš„çµæœ
+index_train = sort(randperm(400,300));              %è¨­å®šäº‚æ•¸INDEX(è¨“ç·´é›†)
 train_x = getTrainAndTest(source,index_train,300,1);
 train_y = getTrainAndTest(source,index_train,300,2);
 for i=1:300
     train_z(i) = 5*sin(pi*train_x(i)^2)*sin(2*pi*train_y(i))+1;
-end                                                                                    %¤Á¤À°V½m¶°
-train_z_encode = (train_z-min(train_z))/(max(train_z)-min(train_z))*(0.8-0.2)+0.2;     %±N´Á±æ­È¥¿³W¤Æ¦Ü0.2~0.8ªº¼Æ­È(°V½m¶°)
+end                                                                                    %åˆ‡åˆ†è¨“ç·´é›†
+train_z_encode = (train_z-min(train_z))/(max(train_z)-min(train_z))*(0.8-0.2)+0.2;     %å°‡æœŸæœ›å€¼æ­£è¦åŒ–è‡³0.2~0.8çš„æ•¸å€¼(è¨“ç·´é›†)
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-%---------±o¨ì´ú¸Õ¶°----------%
+%---------å¾—åˆ°æ¸¬è©¦é›†----------%
 index_test_temp = 1:400;    
 for i = 1:300
     for j = 1:400
@@ -47,165 +47,165 @@ for i = 1:400
         index_test(temp) = index_test_temp(i);
         temp = temp + 1;
     end
-end                                        %³]©w¶Ã¼ÆINDEX(°V½m¶°)
+end                                        %è¨­å®šäº‚æ•¸INDEX(è¨“ç·´é›†)
 test_x = getTrainAndTest(source,index_test,100,1);
 test_y = getTrainAndTest(source,index_test,100,2);
 for i=1:100
     test_z(i) = 5*sin(pi*test_x(i)^2)*sin(2*pi*test_y(i))+1;
-end                                                                                    %¤Á¤À´ú¸Õ¶°
-test_z_encode = (test_z-min(test_z))/(max(test_z)-min(test_z))*(0.8-0.2)+0.2;          %±N´Á±æ­È¥¿³W¤Æ¦Ü0.2~0.8ªº¼Æ­È(´ú¸Õ¶°)
+end                                                                                    %åˆ‡åˆ†æ¸¬è©¦é›†
+test_z_encode = (test_z-min(test_z))/(max(test_z)-min(test_z))*(0.8-0.2)+0.2;          %å°‡æœŸæœ›å€¼æ­£è¦åŒ–è‡³0.2~0.8çš„æ•¸å€¼(è¨“ç·´é›†)
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-% --------------³]©wÁôÂÃ¼h¼Æ¥Ø¤Î¾Ç²ß³t«×-----------------%
+% --------------è¨­å®šéš±è—å±¤æ•¸ç›®åŠå­¸ç¿’é€Ÿåº¦-----------------%
 hiddenLayerNum = 10;   learningRate = 5;     learningRate_bias = learningRate;
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-% --------------¿ï¥XÁôÂÃ¼hÅv­«W¡A¨Ã¥[¤Jbias-----------------%
+% --------------é¸å‡ºéš±è—å±¤æ¬Šé‡Wï¼Œä¸¦åŠ å…¥bias-----------------%
 for i = 1:hiddenLayerNum
     for j = 1:3
-        hidden_w(i,j) = -0.5+(0.5-(-0.5))*rand(1,1);                            %5¦C3¦æ¡A¨C¦C§Y¬°¦U­ÓÁôÂÃ¼h¯«¸g¼Æ¥Øªº¿é¤JÅv­«
+        hidden_w(i,j) = -0.5+(0.5-(-0.5))*rand(1,1);                            %5åˆ—3è¡Œï¼Œæ¯åˆ—å³ç‚ºå„å€‹éš±è—å±¤ç¥ç¶“æ•¸ç›®çš„è¼¸å…¥æ¬Šé‡
     end
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-% --------------¿ï¥X¿é¥X¼hÅv­«W¡A¨Ã¥[¤Jbias-----------------%
+% --------------é¸å‡ºè¼¸å‡ºå±¤æ¬Šé‡Wï¼Œä¸¦åŠ å…¥bias-----------------%
 for i = 1:hiddenLayerNum+1
-   output_w(i) = -0.5+(0.5-(-0.5))*rand(1,1);                                   %1¦C5¦æ¡A¨C¦æ§Y¬°¦U­Ó¿é¥X¼h¯«¸g¼Æ¥Øªº¿é¤JÅv­«
+   output_w(i) = -0.5+(0.5-(-0.5))*rand(1,1);                                   %1åˆ—5è¡Œï¼Œæ¯è¡Œå³ç‚ºå„å€‹è¼¸å‡ºå±¤ç¥ç¶“æ•¸ç›®çš„è¼¸å…¥æ¬Šé‡
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-% --------------¶}©l°V½m---------------%
-time = 0;   stopCondition = 1;                                                  %³]©w°V½m¹Lµ{ªº¦¸¼ÆÅÜ¼Æ¡B°V½mªº°±¤î±ø¥ó¡BÁ`¹B¦æ¦¸¼Æ
+% --------------é–‹å§‹è¨“ç·´---------------%
+time = 0;   stopCondition = 1;                                                  %è¨­å®šè¨“ç·´éç¨‹çš„æ¬¡æ•¸è®Šæ•¸ã€è¨“ç·´çš„åœæ­¢æ¢ä»¶ã€ç¸½é‹è¡Œæ¬¡æ•¸
 while stopCondition > 0.002
     time = time + 1;
     output_wRevise_Batch = 0; hidden_wRevise_Batch = 0;
     for n=1:300
-        % ---------------------±NÁôÂÃ¼hªº¿é¥Xºâ¥X--------------------------%
-        for i = 1:hiddenLayerNum                                                 %5¦C3¦æ¡A¨C¦CÁ`©M§Y¬°¦U­ÓÁôÂÃ¼h¯«¸g¼Æ¥Ø¤¤¡Asigmoid functionªº¦ÛÅÜ¼Æ
-            hidden_vi(i,1) = hidden_w(i,1)*1;                                    %bias¹ïÁôÂÃ¼hªº¼vÅT(°V½m¶°)
-            hidden_vi(i,2) = hidden_w(i,2)*train_x(n);                           %x¹ïÁôÂÃ¼hªº¼vÅT(°V½m¶°)
-            hidden_vi(i,3) = hidden_w(i,3)*train_y(n);                           %y¹ïÁôÂÃ¼hªº¼vÅT(°V½m¶°)
+        % ---------------------å°‡éš±è—å±¤çš„è¼¸å‡ºç®—å‡º--------------------------%
+        for i = 1:hiddenLayerNum                                                 %5åˆ—3è¡Œï¼Œæ¯åˆ—ç¸½å’Œå³ç‚ºå„å€‹éš±è—å±¤ç¥ç¶“æ•¸ç›®ä¸­ï¼Œsigmoid functionçš„è‡ªè®Šæ•¸
+            hidden_vi(i,1) = hidden_w(i,1)*1;                                    %biaså°éš±è—å±¤çš„å½±éŸ¿(è¨“ç·´é›†)
+            hidden_vi(i,2) = hidden_w(i,2)*train_x(n);                           %xå°éš±è—å±¤çš„å½±éŸ¿(è¨“ç·´é›†)
+            hidden_vi(i,3) = hidden_w(i,3)*train_y(n);                           %yå°éš±è—å±¤çš„å½±éŸ¿(è¨“ç·´é›†)
         end
         for i = 1:hiddenLayerNum
-            hidden_v(i) = sum(hidden_vi(i,:));                                   %¨D±oÁôÂÃ¼hªºV¡C±N¨C­Ó¯«¸g¤¸ªºV¥[Á`°_¨Ó(°V½m¶°)
+            hidden_v(i) = sum(hidden_vi(i,:));                                   %æ±‚å¾—éš±è—å±¤çš„Vã€‚å°‡æ¯å€‹ç¥ç¶“å…ƒçš„VåŠ ç¸½èµ·ä¾†(è¨“ç·´é›†)
         end
         for i = 1:hiddenLayerNum
-            hidden_output(i) = 1/(1+exp(-hidden_v(i)));                          %¨D±oÁôÂÃ¼hªº¿é¥X(°V½m¶°)
+            hidden_output(i) = 1/(1+exp(-hidden_v(i)));                          %æ±‚å¾—éš±è—å±¤çš„è¼¸å‡º(è¨“ç·´é›†)
         end
-        %--------------------±N¿é¥X¼hªº¿é¥Xºâ¥X--------------------------%
+        %--------------------å°‡è¼¸å‡ºå±¤çš„è¼¸å‡ºç®—å‡º--------------------------%
         for i = 1:hiddenLayerNum
-            output_vi(i) = output_w(i)*hidden_output(i);                         %¨D±o¿é¥X¼hªºVi(°V½m¶°)
+            output_vi(i) = output_w(i)*hidden_output(i);                         %æ±‚å¾—è¼¸å‡ºå±¤çš„Vi(è¨“ç·´é›†)
         end
-        output_v = sum(output_vi)+output_w(hiddenLayerNum+1);                    %¨D±o¿é¥X¼hªºV(°V½m¶°)
-        output_output(n) = 1/(1+exp(-output_v));                                 %¨D±o¿é¥X¼hªº¿é¥X(°V½m¶°)
-        %---------------------¨D±o°V½m¶°ªº»~®t©ME----------------------%
+        output_v = sum(output_vi)+output_w(hiddenLayerNum+1);                    %æ±‚å¾—è¼¸å‡ºå±¤çš„V(è¨“ç·´é›†)
+        output_output(n) = 1/(1+exp(-output_v));                                 %æ±‚å¾—è¼¸å‡ºå±¤çš„è¼¸å‡º(è¨“ç·´é›†)
+        %---------------------æ±‚å¾—è¨“ç·´é›†çš„èª¤å·®å’ŒE----------------------%
         train_e = train_z_encode(n)-output_output(n);
         E_SMode_train_temp(n) = train_e*train_e;
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%        
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%        
-        %---------------------¨D±o´ú¸Õ¶°ªº¿é¥X----------------------%
-        freq = mod(n,3);                                                         %¥Ñ©ó°V½m¶°©M´ú¸Õ¶°¤j¤p¤£¤@¼Ë¡A¦]¦¹¨C·í´ú¸Õ¶°¨ú¨ì3ªº­¿¼Æ®É¡A¤~¨ú¤@¦¸´ú¸Õ¶°ªº»~®t­È
+        %---------------------æ±‚å¾—æ¸¬è©¦é›†çš„è¼¸å‡º----------------------%
+        freq = mod(n,3);                                                         %ç”±æ–¼è¨“ç·´é›†å’Œæ¸¬è©¦é›†å¤§å°ä¸ä¸€æ¨£ï¼Œå› æ­¤æ¯ç•¶æ¸¬è©¦é›†å–åˆ°3çš„å€æ•¸æ™‚ï¼Œæ‰å–ä¸€æ¬¡æ¸¬è©¦é›†çš„èª¤å·®å€¼
         if freq == 0
-            %---------------------±NÁôÂÃ¼hªº¿é¥Xºâ¥X--------------------------%
+            %---------------------å°‡éš±è—å±¤çš„è¼¸å‡ºç®—å‡º--------------------------%
             for i = 1:hiddenLayerNum
-                hidden_vi_test(i,1) = hidden_w(i,1)*1;                           %bias¹ïÁôÂÃ¼hªº¼vÅT(´ú¸Õ¶°)
-                hidden_vi_test(i,2) = hidden_w(i,2)*test_x(n/3);                 %x¹ïÁôÂÃ¼hªº¼vÅT(´ú¸Õ¶°)
-                hidden_vi_test(i,3) = hidden_w(i,3)*test_y(n/3);                 %y¹ïÁôÂÃ¼hªº¼vÅT(´ú¸Õ¶°)
+                hidden_vi_test(i,1) = hidden_w(i,1)*1;                           %biaså°éš±è—å±¤çš„å½±éŸ¿(æ¸¬è©¦é›†)
+                hidden_vi_test(i,2) = hidden_w(i,2)*test_x(n/3);                 %xå°éš±è—å±¤çš„å½±éŸ¿(æ¸¬è©¦é›†)
+                hidden_vi_test(i,3) = hidden_w(i,3)*test_y(n/3);                 %yå°éš±è—å±¤çš„å½±éŸ¿(æ¸¬è©¦é›†)
             end
             for i = 1:hiddenLayerNum
-                hidden_v_test(i) = sum(hidden_vi_test(i,:));                     %¨D±oÁôÂÃ¼hªºV¡C±N¨C­Ó¯«¸g¤¸ªºV¥[Á`°_¨Ó(´ú¸Õ¶°)
+                hidden_v_test(i) = sum(hidden_vi_test(i,:));                     %æ±‚å¾—éš±è—å±¤çš„Vã€‚å°‡æ¯å€‹ç¥ç¶“å…ƒçš„VåŠ ç¸½èµ·ä¾†(æ¸¬è©¦é›†)
             end
             for i = 1:hiddenLayerNum
-                hidden_output_test(i) = 1/(1+exp(-hidden_v_test(i)));            %¨D±oÁôÂÃ¼hªº¿é¥X(´ú¸Õ¶°)
+                hidden_output_test(i) = 1/(1+exp(-hidden_v_test(i)));            %æ±‚å¾—éš±è—å±¤çš„è¼¸å‡º(æ¸¬è©¦é›†)
             end
-            %--------------------±N¿é¥X¼hªº¿é¥Xºâ¥X--------------------------%
+            %--------------------å°‡è¼¸å‡ºå±¤çš„è¼¸å‡ºç®—å‡º--------------------------%
             for i = 1:hiddenLayerNum
-                output_vi_test(i) = output_w(i)*hidden_output_test(i);           %¨D±o¿é¥X¼hªºVi(´ú¸Õ¶°)
+                output_vi_test(i) = output_w(i)*hidden_output_test(i);           %æ±‚å¾—è¼¸å‡ºå±¤çš„Vi(æ¸¬è©¦é›†)
             end
-            output_v_test = sum(output_vi_test)+output_w(hiddenLayerNum+1);      %¨D±o¿é¥X¼hªºV(´ú¸Õ¶°)
-            output_output_test(n/3) = 1/(1+exp(-output_v_test));                 %¨D±o¿é¥X¼hªº¿é¥X(´ú¸Õ¶°)
-            %---------------------¨D±o°V½m¶°ªº»~®t©ME----------------------%
+            output_v_test = sum(output_vi_test)+output_w(hiddenLayerNum+1);      %æ±‚å¾—è¼¸å‡ºå±¤çš„V(æ¸¬è©¦é›†)
+            output_output_test(n/3) = 1/(1+exp(-output_v_test));                 %æ±‚å¾—è¼¸å‡ºå±¤çš„è¼¸å‡º(æ¸¬è©¦é›†)
+            %---------------------æ±‚å¾—è¨“ç·´é›†çš„èª¤å·®å’ŒE----------------------%
             test_e(n/3) = test_z_encode(n/3)-output_output_test(n/3);
             E_SMode_test_temp(n/3) = test_e(n/3) *test_e(n/3) ;
         end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%        
-        %--------------------­×¥¿¿é¥X¼hªºW---------------------%
+        %--------------------ä¿®æ­£è¼¸å‡ºå±¤çš„W---------------------%
         for i=1:hiddenLayerNum
             etaO = train_e*output_output(n)*(1-output_output(n));
-            output_wRevise(i) = learningRate* etaO *hidden_output(i);          %¨D±o¿é¥X¼hªºW­×¥¿¶q
+            output_wRevise(i) = learningRate* etaO *hidden_output(i);          %æ±‚å¾—è¼¸å‡ºå±¤çš„Wä¿®æ­£é‡
         end
-        output_wRevise(hiddenLayerNum+1) = learningRate_bias* 1 * etaO;        %³]©wbiasªº­×¥¿¶q(­«­n!!!!!!!)
-        output_wRevise_Batch = output_wRevise_Batch + output_wRevise;          %²Ö¥[W­×¥¿¶q¦ÜW¤¤(Batch mode)
-        %--------------------­×¥¿ÁôÂÃ¼hªºW---------------------%
+        output_wRevise(hiddenLayerNum+1) = learningRate_bias* 1 * etaO;        %è¨­å®šbiasçš„ä¿®æ­£é‡(é‡è¦!!!!!!!)
+        output_wRevise_Batch = output_wRevise_Batch + output_wRevise;          %ç´¯åŠ Wä¿®æ­£é‡è‡³Wä¸­(Batch mode)
+        %--------------------ä¿®æ­£éš±è—å±¤çš„W---------------------%
         for i=1:hiddenLayerNum
             etaH = etaO*output_w(i)*hidden_output(i)*(1-hidden_output(i));
-            hidden_wRevise(i,1) = learningRate_bias* 1 * etaH;                 %biasªº­×¥¿¶q(­«­n!!!!!!!)
+            hidden_wRevise(i,1) = learningRate_bias* 1 * etaH;                 %biasçš„ä¿®æ­£é‡(é‡è¦!!!!!!!)
             hidden_wRevise(i,2) = learningRate* etaH *train_x(n);              
             hidden_wRevise(i,3) = learningRate* etaH *train_y(n);
-        end                                                                    %¨D±oÁôÂÃ¼hªºW­×¥¿¶q
-        hidden_wRevise_Batch = hidden_wRevise_Batch + hidden_wRevise;          %²Ö¥[W­×¥¿¶q¦ÜW¤¤(Batch mode)
+        end                                                                    %æ±‚å¾—éš±è—å±¤çš„Wä¿®æ­£é‡
+        hidden_wRevise_Batch = hidden_wRevise_Batch + hidden_wRevise;          %ç´¯åŠ Wä¿®æ­£é‡è‡³Wä¸­(Batch mode)
     end
     %--------------------momentum w revise---------------------%
     if time > 1
         output_w = output_w + output_wRevise_Batch/300 + 0.8*output_wRevise_special;
         hidden_w = hidden_w + hidden_wRevise_Batch/300 + 0.8*hidden_wRevise_special;
     elseif time == 1
-        output_w = output_w + output_wRevise_Batch/300;                        %­×¥¿¿é¥X¼hªºW
-        hidden_w = hidden_w + hidden_wRevise_Batch/300;                        %­×¥¿ÁôÂÃ¼hªºW
+        output_w = output_w + output_wRevise_Batch/300;                        %ä¿®æ­£è¼¸å‡ºå±¤çš„W
+        hidden_w = hidden_w + hidden_wRevise_Batch/300;                        %ä¿®æ­£éš±è—å±¤çš„W
     end
     output_wRevise_special = output_wRevise_Batch/300;
     hidden_wRevise_special = hidden_wRevise_Batch/300;
     %-------------------not momentum w revise------------------%
-%     output_w = output_w + output_wRevise_Batch/300;                            %­×¥¿¿é¥X¼hªºW
-%     hidden_w = hidden_w + hidden_wRevise_Batch/300;                            %­×¥¿ÁôÂÃ¼hªºW
-    %--------------------­pºâenergy---------------------%
+%     output_w = output_w + output_wRevise_Batch/300;                            %ä¿®æ­£è¼¸å‡ºå±¤çš„W
+%     hidden_w = hidden_w + hidden_wRevise_Batch/300;                            %ä¿®æ­£éš±è—å±¤çš„W
+    %--------------------è¨ˆç®—energy---------------------%
     E_SMode_train(time) = 0.5*sum(E_SMode_train_temp)/300;
     E_SMode_test(time) = 0.5*sum(E_SMode_test_temp)/100;
-    %---------------§ó·s°±¤îÅÜ¼Æ¤¤ªº¼Æ­È-----------------%
+    %---------------æ›´æ–°åœæ­¢è®Šæ•¸ä¸­çš„æ•¸å€¼-----------------%
     stopCondition = E_SMode_test(time);
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-% --------------±N¸ê®Æ¥á¤J°V½m¼Ò«¬¸Ì---------------%
+% --------------å°‡è³‡æ–™ä¸Ÿå…¥è¨“ç·´æ¨¡å‹è£¡---------------%
 for n = 1:100
     for i = 1:hiddenLayerNum
-        hidden_vi_result(i,1) = hidden_w(i,1)*1;                           %bias¹ïÁôÂÃ¼hªº¼vÅT(´ú¸Õ¶°)
-        hidden_vi_result(i,2) = hidden_w(i,2)*test_x(n);                   %x¹ïÁôÂÃ¼hªº¼vÅT(´ú¸Õ¶°)
-        hidden_vi_result(i,3) = hidden_w(i,3)*test_y(n);                   %y¹ïÁôÂÃ¼hªº¼vÅT(´ú¸Õ¶°)
+        hidden_vi_result(i,1) = hidden_w(i,1)*1;                           %biaså°éš±è—å±¤çš„å½±éŸ¿(æ¸¬è©¦é›†)
+        hidden_vi_result(i,2) = hidden_w(i,2)*test_x(n);                   %xå°éš±è—å±¤çš„å½±éŸ¿(æ¸¬è©¦é›†)
+        hidden_vi_result(i,3) = hidden_w(i,3)*test_y(n);                   %yå°éš±è—å±¤çš„å½±éŸ¿(æ¸¬è©¦é›†)
     end
     for i = 1:hiddenLayerNum
-        hidden_v_result(i) = sum(hidden_vi_result(i,:));                   %¨D±oÁôÂÃ¼hªºV¡C±N¨C­Ó¯«¸g¤¸ªºV¥[Á`°_¨Ó(´ú¸Õ¶°)
+        hidden_v_result(i) = sum(hidden_vi_result(i,:));                   %æ±‚å¾—éš±è—å±¤çš„Vã€‚å°‡æ¯å€‹ç¥ç¶“å…ƒçš„VåŠ ç¸½èµ·ä¾†(æ¸¬è©¦é›†)
     end
     for i = 1:hiddenLayerNum
-        hidden_output_result(i) = 1/(1+exp(-hidden_v_result(i)));          %¨D±oÁôÂÃ¼hªº¿é¥X(´ú¸Õ¶°)
+        hidden_output_result(i) = 1/(1+exp(-hidden_v_result(i)));          %æ±‚å¾—éš±è—å±¤çš„è¼¸å‡º(æ¸¬è©¦é›†)
     end
-%--------------------±N¿é¥X¼hªº¿é¥Xºâ¥X--------------------------%
+%--------------------å°‡è¼¸å‡ºå±¤çš„è¼¸å‡ºç®—å‡º--------------------------%
     for i = 1:hiddenLayerNum
-        output_vi_result(i) = output_w(i)*hidden_output_result(i);         %¨D±o¿é¥X¼hªºVi(´ú¸Õ¶°)
+        output_vi_result(i) = output_w(i)*hidden_output_result(i);         %æ±‚å¾—è¼¸å‡ºå±¤çš„Vi(æ¸¬è©¦é›†)
     end
-    output_v_result = sum(output_vi_result)+output_w(hiddenLayerNum+1);    %¨D±o¿é¥X¼hªºV(´ú¸Õ¶°)
-    output_output_result(n) = 1/(1+exp(-output_v_result));                 %¨D±o¿é¥X¼hªº¿é¥X(´ú¸Õ¶°)
+    output_v_result = sum(output_vi_result)+output_w(hiddenLayerNum+1);    %æ±‚å¾—è¼¸å‡ºå±¤çš„V(æ¸¬è©¦é›†)
+    output_output_result(n) = 1/(1+exp(-output_v_result));                 %æ±‚å¾—è¼¸å‡ºå±¤çš„è¼¸å‡º(æ¸¬è©¦é›†)
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-% --------------°V½m¼Ò«¬¥X¨Óªº¸ê®Æ³B²z---------------%
+% --------------è¨“ç·´æ¨¡å‹å‡ºä¾†çš„è³‡æ–™è™•ç†---------------%
 for i = 1:100
     result(i) = (output_output_result(i)-min(output_output_result))/(max(output_output_result)-min(output_output_result))*(max(test_z)-min(test_z))+min(test_z);
 end
-result_plot = arrayChange(result,10,91);                          %¥Î¼g¦nªºfunction±N°V½m¼Ò«¬¨D¥Xªº¯x°}1*100Âà¦¨10*10
-test_z_plot = arrayChange(test_z,10,91);                          %¥Î¼g¦nªºfunction±N´ú¸Õ¶°¯x°}1*100Âà¦¨10*10
+result_plot = arrayChange(result,10,91);                          %ç”¨å¯«å¥½çš„functionå°‡è¨“ç·´æ¨¡å‹æ±‚å‡ºçš„çŸ©é™£1*100è½‰æˆ10*10
+test_z_plot = arrayChange(test_z,10,91);                          %ç”¨å¯«å¥½çš„functionå°‡æ¸¬è©¦é›†çŸ©é™£1*100è½‰æˆ10*10
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
-% --------------Ã¸¹Ï---------------%
-subplot(2,2,1); surf(z);  shading interp                          %®Ú¾ÚÃD¥Øµ¹ªº«D½u©Ê¤èµ{¦¡¡AÃ¸¥X¹Ï§Î
+% --------------ç¹ªåœ–---------------%
+subplot(2,2,1); surf(z);  shading interp                          %æ ¹æ“šé¡Œç›®çµ¦çš„éç·šæ€§æ–¹ç¨‹å¼ï¼Œç¹ªå‡ºåœ–å½¢
 title('Standard Graphics'); 
 xlabel('X'); ylabel('Y'); zlabel('Z');
 
-subplot(2,2,4); surf(result_plot);  shading interp                %®Ú¾Ú°V½mµ²ªG¡AÃ¸¥X¹Ï§Î
-title({['Training Result (Batch Mode¡BGradient Descent With Momentum)'],['Hidden Layer = ',mat2str(hiddenLayerNum),'   Learning Rate = ',mat2str(learningRate),'   Epoch = ' mat2str(time)]}); 
+subplot(2,2,4); surf(result_plot);  shading interp                %æ ¹æ“šè¨“ç·´çµæœï¼Œç¹ªå‡ºåœ–å½¢
+title({['Training Result (Batch Modeã€Gradient Descent With Momentum)'],['Hidden Layer = ',mat2str(hiddenLayerNum),'   Learning Rate = ',mat2str(learningRate),'   Epoch = ' mat2str(time)]}); 
 xlabel('X'); ylabel('Y'); zlabel('Z');
 
-subplot(2,2,3); surf(test_z_plot);  shading interp                %®Ú¾Ú´ú¸Õ¶°ªº¼Æ¾Ú¡AÃ¸¥X¹Ï§Î
+subplot(2,2,3); surf(test_z_plot);  shading interp                %æ ¹æ“šæ¸¬è©¦é›†çš„æ•¸æ“šï¼Œç¹ªå‡ºåœ–å½¢
 title('Test Data Graphics'); 
 xlabel('X'); ylabel('Y'); zlabel('Z');
 
 figure(2);
 plot_x = 0:1:time-1;
 plot(plot_x,E_SMode_train); hold on; 
-plot(plot_x,E_SMode_test);                                        %Ã¸¥X¹Ï§Î°V½m¶°»P´ú¸Õ¶°¤§»~®tÀHCycleªºÁÍ¶Õ¹Ï
-title({['Energy Run Chart (Batch Mode¡BGradient Descent With Momentum)'],[ 'Hidden Layer = ',mat2str(hiddenLayerNum),'   Learning Rate = ',mat2str(learningRate),'   Epoch = ',mat2str(time)]});
+plot(plot_x,E_SMode_test);                                        %ç¹ªå‡ºåœ–å½¢è¨“ç·´é›†èˆ‡æ¸¬è©¦é›†ä¹‹èª¤å·®éš¨Cycleçš„è¶¨å‹¢åœ–
+title({['Energy Run Chart (Batch Modeã€Gradient Descent With Momentum)'],[ 'Hidden Layer = ',mat2str(hiddenLayerNum),'   Learning Rate = ',mat2str(learningRate),'   Epoch = ',mat2str(time)]});
 xlabel('Number of Epoch'); ylabel('Energy'); legend('TRAIN','TEST');
