@@ -213,7 +213,7 @@ xlabel('X'); ylabel('Y'); zlabel('Z');
 
 subplot(2,2,3); surf(test_z_plot);  shading interp                %根據測試集的數據，繪出圖形
 title('Test Data Graphics'); 
-xlabel('X'); ylabel('Y'); zlabel('Z');
+xlabel('X'); ylabel('Y'); zlabel('Z'); 
 
 figure(2);
 plot_x = 0:1:time-1;
