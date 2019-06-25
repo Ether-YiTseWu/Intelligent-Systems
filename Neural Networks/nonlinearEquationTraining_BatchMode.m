@@ -4,7 +4,7 @@ clc; clear;
 interval = 1.5/21;                               
 x = -0.8+interval : interval :0.7-interval;             %設定x軸數值
 y = -0.8+interval : interval :0.7-interval;             %設定y軸數值
-for i=1:20                                              %設定z軸數值
+for i=1:20                                              %設定z軸數值 
     for j=1:20
         z(i,j) = 5*sin(pi*x(i)^2)*sin(2*pi*y(j))+1; 
     end
