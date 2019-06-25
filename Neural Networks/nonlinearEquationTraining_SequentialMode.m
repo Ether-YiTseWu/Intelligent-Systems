@@ -49,7 +49,7 @@ for i = 1:400
     end
 end                                                   %設定亂數INDEX(測試集)
 test_x = getTrainAndTest(source,index_test,100,1);    %利用已寫好的function切分測試集部分的x資料
-test_y = getTrainAndTest(source,index_test,100,2);    %利用已寫好的function切分測試集部分的x資料
+test_y = getTrainAndTest(source,index_test,100,2);    %利用已寫好的function切分測試集部分的y資料
 for i=1:100
     test_z(i) = 5*sin(pi*test_x(i)^2)*sin(2*pi*test_y(i))+1;
 end                                                                              %切分測試集
