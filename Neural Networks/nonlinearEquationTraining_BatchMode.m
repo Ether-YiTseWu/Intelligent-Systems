@@ -25,8 +25,8 @@ for i=1:400
     end
 end                                                 %做準備以切分，source為每個x和y交集出來的結果
 index_train = sort(randperm(400,300));              %設定亂數INDEX(訓練集)
-train_x = getTrainAndTest(source,index_train,300,1);
-train_y = getTrainAndTest(source,index_train,300,2);
+train_x = getTrainAndTest(source,index_train,300,1);%利用已寫好的function切分訓練集部分的x資料
+train_y = getTrainAndTest(source,index_train,300,2);%利用已寫好的function切分訓練集部分的y資料
 for i=1:300
     train_z(i) = 5*sin(pi*train_x(i)^2)*sin(2*pi*train_y(i))+1;
 end                                                                                    %切分訓練集
@@ -47,9 +47,9 @@ for i = 1:400
         index_test(temp) = index_test_temp(i);
         temp = temp + 1;
     end
-end                                        %設定亂數INDEX(訓練集)
-test_x = getTrainAndTest(source,index_test,100,1);
-test_y = getTrainAndTest(source,index_test,100,2);
+end                                                                                    %設定亂數INDEX(訓練集)
+test_x = getTrainAndTest(source,index_test,100,1);                                     %利用已寫好的function切分測試集部分的x資料
+test_y = getTrainAndTest(source,index_test,100,2);                                     %利用已寫好的function切分測試集部分的y資料
 for i=1:100
     test_z(i) = 5*sin(pi*test_x(i)^2)*sin(2*pi*test_y(i))+1;
 end                                                                                    %切分測試集
@@ -61,13 +61,13 @@ hiddenLayerNum = 10;   learningRate = 5;     learningRate_bias = learningRate;
 % --------------選出隱藏層權重W，並加入bias-----------------%
 for i = 1:hiddenLayerNum
     for j = 1:3
-        hidden_w(i,j) = -0.5+(0.5-(-0.5))*rand(1,1);                            %5列3行，每列即為各個隱藏層神經數目的輸入權重
+        hidden_w(i,j) = -0.5+(0.5-(-0.5))*rand(1,1);                            %hiddenLayerNum列3行，每列即為各個隱藏層的輸入數目之權重(x，y，bias)
     end
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 % --------------選出輸出層權重W，並加入bias-----------------%
 for i = 1:hiddenLayerNum+1
-   output_w(i) = -0.5+(0.5-(-0.5))*rand(1,1);                                   %1列5行，每行即為各個輸出層神經數目的輸入權重
+   output_w(i) = -0.5+(0.5-(-0.5))*rand(1,1);                                   %1列hiddenLayerNum+1行，每個數字即為輸出層的輸入數目之權重
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 % --------------開始訓練---------------%
@@ -92,7 +92,7 @@ while stopCondition > 0.002
         for i = 1:hiddenLayerNum
             output_vi(i) = output_w(i)*hidden_output(i);                         %求得輸出層的Vi(訓練集)
         end
-        output_v = sum(output_vi)+output_w(hiddenLayerNum+1);                    %求得輸出層的V(訓練集)
+        output_v = sum(output_vi)+output_w(hiddenLayerNum+1);                    %求得輸出層的V(訓練集)，output_w(hiddenLayerNum+1)為輸出層的bias
         output_output(n) = 1/(1+exp(-output_v));                                 %求得輸出層的輸出(訓練集)
         %---------------------求得訓練集的誤差和E----------------------%
         train_e = train_z_encode(n)-output_output(n);
