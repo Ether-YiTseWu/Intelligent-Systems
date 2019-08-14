@@ -130,9 +130,9 @@ while stopCondition > 0.002
         %--------------------修正輸出層的W---------------------%
         for i=1:hiddenLayerNum
             etaO = train_e*output_output(n)*(1-output_output(n));
-            output_wRevise(i) = learningRate* etaO *hidden_output(i);          %求得輸出層的W修正量
+            output_wRevise(i) = learningRate* etaO *hidden_output(i);            %求得輸出層的W修正量
         end
-        output_wRevise(hiddenLayerNum+1) = learningRate_bias* 1 * etaO;        %設定bias的修正量(重要!!!!!!!)
+        output_wRevise(hiddenLayerNum+1) = learningRate_bias* 1 * etaO;          %設定bias的修正量(重要!!!!!!!)
         %--------------------momentum w revise---------------------%
 %         output_wRevise_record(n,:) =  output_wRevise;                          %將修正量紀錄下來
 %         if index_wRecord >1 && n > 1                                           %為節省記憶體使用量，故使用這種方法來減少output_wRevise_record的記憶體占用量
