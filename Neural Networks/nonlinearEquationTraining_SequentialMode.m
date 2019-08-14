@@ -23,10 +23,10 @@ for i=1:400
     else
         source(i,2) = x(20);
     end
-end                                                 %做準備以切分，source為將每個x和y待入本題function所得的結果
-index_train = sort(randperm(400,300));              %設定亂數INDEX(訓練集)
-train_x = getTrainAndTest(source,index_train,300,1);%利用已寫好的function切分訓練集部分的x資料
-train_y = getTrainAndTest(source,index_train,300,2);%利用已寫好的function切分訓練集部分的y資料
+end                                                     %做準備以切分，source為將每個x和y待入本題function所得的結果
+index_train = sort(randperm(400,300));                  %設定亂數INDEX(訓練集)
+train_x = getTrainAndTest(source,index_train,300,1);    %利用已寫好的function切分訓練集部分的x資料
+train_y = getTrainAndTest(source,index_train,300,2);    %利用已寫好的function切分訓練集部分的y資料
 for i=1:300
     train_z(i) = 5*sin(pi*train_x(i)^2)*sin(2*pi*train_y(i))+1;
 end                                                                                    %切分訓練集
