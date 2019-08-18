@@ -23,10 +23,10 @@ for i=1:400
     else
         source(i,2) = x(20);
     end
-end                                                 %做準備以切分，source為將每個x和y待入本題function所得的結果
-index_train = sort(randperm(400,300));              %設定亂數INDEX(訓練集)
-train_x = getTrainAndTest(source,index_train,300,1);%利用已寫好的function切分訓練集部分的x資料
-train_y = getTrainAndTest(source,index_train,300,2);%利用已寫好的function切分訓練集部分的y資料
+end                                                     %做準備以切分，source為將每個x和y待入本題function所得的結果
+index_train = sort(randperm(400,300));                  %設定亂數INDEX(訓練集)
+train_x = getTrainAndTest(source,index_train,300,1);    %利用已寫好的function切分訓練集部分的x資料
+train_y = getTrainAndTest(source,index_train,300,2);    %利用已寫好的function切分訓練集部分的y資料
 for i=1:300
     train_z(i) = 5*sin(pi*train_x(i)^2)*sin(2*pi*train_y(i))+1;
 end                                                                                    %切分訓練集
@@ -130,9 +130,9 @@ while stopCondition > 0.002
         %--------------------修正輸出層的W---------------------%
         for i=1:hiddenLayerNum
             etaO = train_e*output_output(n)*(1-output_output(n));
-            output_wRevise(i) = learningRate* etaO *hidden_output(i);          %求得輸出層的W修正量
+            output_wRevise(i) = learningRate* etaO *hidden_output(i);            %求得輸出層的W修正量
         end
-        output_wRevise(hiddenLayerNum+1) = learningRate_bias* 1 * etaO;        %設定bias的修正量(重要!!!!!!!)
+        output_wRevise(hiddenLayerNum+1) = learningRate_bias* 1 * etaO;          %設定bias的修正量(重要!!!!!!!)
         %--------------------momentum w revise---------------------%
 %         output_wRevise_record(n,:) =  output_wRevise;                          %將修正量紀錄下來
 %         if index_wRecord >1 && n > 1                                           %為節省記憶體使用量，故使用這種方法來減少output_wRevise_record的記憶體占用量

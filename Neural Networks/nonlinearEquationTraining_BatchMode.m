@@ -23,10 +23,10 @@ for i=1:400
     else
         source(i,2) = x(20);
     end
-end                                                 %做準備以切分，source為每個x和y交集出來的結果
-index_train = sort(randperm(400,300));              %設定亂數INDEX(訓練集)
-train_x = getTrainAndTest(source,index_train,300,1);%利用已寫好的function切分訓練集部分的x資料
-train_y = getTrainAndTest(source,index_train,300,2);%利用已寫好的function切分訓練集部分的y資料
+end                                                     %做準備以切分，source為每個x和y交集出來的結果
+index_train = sort(randperm(400,300));                  %設定亂數INDEX(訓練集)
+train_x = getTrainAndTest(source,index_train,300,1);    %利用已寫好的function切分訓練集部分的x資料
+train_y = getTrainAndTest(source,index_train,300,2);    %利用已寫好的function切分訓練集部分的y資料
 for i=1:300
     train_z(i) = 5*sin(pi*train_x(i)^2)*sin(2*pi*train_y(i))+1;
 end                                                                                    %切分訓練集
@@ -61,17 +61,17 @@ hiddenLayerNum = 10;   learningRate = 5;     learningRate_bias = learningRate;
 % --------------選出隱藏層權重W，並加入bias-----------------%
 for i = 1:hiddenLayerNum
     for j = 1:3
-        hidden_w(i,j) = -0.5+(0.5-(-0.5))*rand(1,1);                            %hiddenLayerNum列3行，每列即為各個隱藏層的輸入數目之權重(x，y，bias)
+        hidden_w(i,j) = -0.5+(0.5-(-0.5))*rand(1,1);                             %hiddenLayerNum列3行，每列即為各個隱藏層的輸入數目之權重(x，y，bias)
     end
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 % --------------選出輸出層權重W，並加入bias-----------------%
 for i = 1:hiddenLayerNum+1
-   output_w(i) = -0.5+(0.5-(-0.5))*rand(1,1);                                   %1列hiddenLayerNum+1行，每個數字即為輸出層的輸入數目之權重
+   output_w(i) = -0.5+(0.5-(-0.5))*rand(1,1);                                    %1列hiddenLayerNum+1行，每個數字即為輸出層的輸入數目之權重
 end
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
 % --------------開始訓練---------------%
-time = 0;   stopCondition = 1;                                                  %設定訓練過程的次數變數、訓練的停止條件、總運行次數
+time = 0;   stopCondition = 1;                                                   %設定訓練過程的次數變數、訓練的停止條件
 while stopCondition > 0.002
     time = time + 1;
     output_wRevise_Batch = 0; hidden_wRevise_Batch = 0;
