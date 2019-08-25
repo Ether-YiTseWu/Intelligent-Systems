@@ -8,7 +8,7 @@ A NTOU-NCE Master's Program. And there are some projects of intelligent systems,
 
 ## Intelligent Systems Project
 ### 1. Evolutionary computation
-- Goal : 
+- Goal : A function : f(x) = -15*sin^2⁡(2x)-(x-2)^2+160. Find the x such that f(x) is global maximum instead of local maximum. The x domain is from minus ten to plus ten. Set up the population sizes are 10, cross over rate is 0.8, and mutation rate is 0.01. In addition, the population precision is 10 bits when using binary code genetic algorithm.
 - Result : 
 >
 ### 2. Fuzzy system
