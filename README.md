@@ -7,8 +7,14 @@ A NTOU-NCE Master's Program. And there are some projects of intelligent systems,
 >
 
 ## Evolutionary computation
-
+- Goal : 
+- Result : 
+>
 ## Fuzzy system
-
+- Goal : 
+- Result : 
+>
 ## Neural network (BP)
-
+>
+- Goal : 
+- Result : 
