@@ -1,5 +1,5 @@
 # Intelligent-Systems
-A NTOU-NCE Master's Program. And there are some projects of intelligent systems, including evolutionary computation, fuzzy system and neural networks..
+A NTOU-NCE Master's Program. There are some projects of intelligent systems, including evolutionary computation, fuzzy system and neural networks..
 >
 
 ## Mind Map
