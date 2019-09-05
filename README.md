@@ -47,7 +47,7 @@ R^9: If temp is high and weight is light. Then op-time is short and power is low
 ## Project 03 :  Neural network (BP)
 >
 - Goal :    
-A function is f(x, y) = 5*sⅈn⁡(πx^2 )*sⅈn(2πy)+1. The value of x and y are between -0.8 and 0.7. According to the coordinate points of this function, use backpropagation neural network to train an approximate nonlinear function model.
+A function is f(x, y) = 5*sin(πx^2 )*sin(2πy)+1. The value of x and y are between -0.8 and 0.7. According to the coordinate points of this function, use backpropagation neural network to train an approximate nonlinear function model.
 >
 - Function of this Problem :    
 ![](https://github.com/tailer954/Intelligent-Systems/blob/master/Neural%20Networks/Function%20of%20this%20Problem.png)
