@@ -1,6 +1,6 @@
 # Intelligent-Systems
 ## Overview
-A NTOU-NCE Master's Program. There are some projects of intelligent systems, including evolutionary computation, fuzzy system and neural networks.
+A NTOU-NCE Master's Program. There are some projects of intelligent systems, including evolutionary computation, fuzzy system and neural networks. These projects are not completed by Matlab toolbox, instead, by my own programming skill.
 >
 
 ## Mind Map
